@@ -9,7 +9,7 @@ import type {
   Scan,
 } from "./types";
 
-export const USE_MOCKS = true; // flip to false when the backend is live
+export const USE_MOCKS = false; // flip to false when the backend is live
 
 const BASE = USE_MOCKS ? "/mocks" : "http://localhost:8000/api";
 

@@ -48,3 +48,10 @@ coverage/
 # Misc
 .cache/
 tmp/
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# This repo standardizes on bun.lock for the frontend; don't let a stray
+# `npm install` commit a conflicting lockfile.
+frontend/package-lock.json
