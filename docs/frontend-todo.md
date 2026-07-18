@@ -61,3 +61,17 @@
 - [ ] Injection highlight and `trigger_matched` visible on a failed finding
 - [ ] Metric cards apply the risk-score thresholds
 - [ ] No status conveyed by color alone
+
+## Council review follow-ups (2026-07-18)
+
+- [ ] Finding detail expands in place (dashboard cards stay visible)
+- [ ] Progress bar from `progress.completed/total`; per-suite rows only if the backend adds a `suite_progress` field
+- [ ] Risk score is the hero card; regs implicated render as framework chips
+- [ ] Retest applies the returned `summary` to animate the metric cards
+- [ ] Retest shows before/after agent response (required) + `trigger_matched`→null
+- [ ] Retest shows the `control_case` (legitimate approval still allowed)
+- [ ] Failed-scan state (error banner + Retry) using `scan_failed.json`
+- [ ] Zero-findings "target hardened" state using `findings_empty.json`
+- [ ] Injection highlight has a boundary marker/icon, not fill color alone
+- [ ] Serve `frontend/mocks/` from the framework static root (`public/mocks/`)
+- [ ] Finding-detail content follows the attack→did→harm→fix→retest order

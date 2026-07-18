@@ -1,13 +1,13 @@
 # RedLayer
 
-**A red-teaming dashboard that scans an SMB loan-underwriting AI agent for prompt-injection vulnerabilities and maps each one to the financial regulation it would violate.**
+**A red-teaming dashboard that probes a mock SMB loan-underwriting AI agent for prompt-injection vulnerabilities and maps each finding to the financial regulation or supervisory guidance it implicates.**
 
 RedLayer probes a mock **SMB loan underwriting agent** for malicious instructions
 hidden inside the documents it reads (bank statements, tax returns) — injections
 that can trick it into approving loans it shouldn't or leaking applicant data.
-Every finding is mapped to the specific regulation a lender would be violating
-(**ECOA, FCRA, GLBA, SR 11-7**). The engine is built on NVIDIA's open-source
-[garak](https://github.com/NVIDIA/garak) scanner.
+Each finding is mapped to the financial regulation or supervisory guidance it
+**implicates** (**ECOA, FCRA, GLBA, SR 11-7**). The engine is built on NVIDIA's
+open-source [garak](https://github.com/NVIDIA/garak) LLM red-teaming toolkit.
 
 > ⚠️ **This project contains intentional vulnerabilities for demonstration.** The
 > target agent is deliberately insecure and all data is simulated. Nothing here is
@@ -39,6 +39,10 @@ Every finding is mapped to the specific regulation a lender would be violating
 - **Real fixes, not UI swaps.** Re-test changes actual backend behavior, and a fix
   blocks the injection while still allowing a legitimate approval (precision, not a
   blanket block).
+- **Honest scope.** This is a deterministic _demonstration_ of known injection
+  classes mapped to lending compliance — not an open-ended scanner discovering
+  zero-days, and the metrics are computed over a fixed authored suite, not a
+  measurement of real-world exposure.
 
 ## Repository layout
 

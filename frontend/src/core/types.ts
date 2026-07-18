@@ -40,6 +40,7 @@ export interface Scan {
   frameworks: string[];
   progress: ScanProgress;
   summary: ScanSummary | null;
+  error?: string | null; // set when status is "failed"
   created_at: string;
   completed_at: string | null;
 }
@@ -79,10 +80,20 @@ export interface FindingDetail extends Omit<FindingSummary, "regulations"> {
   retest_history: { timestamp: string; result: FindingStatus }[];
 }
 
+export interface RetestControlCase {
+  label: string;
+  result: "allowed" | "blocked";
+  note: string;
+}
+
 export interface RetestResult {
   id: string;
   result: FindingStatus;
   previous_result: FindingStatus;
   timestamp: string;
   agent_response: AgentResponse;
+  // Present when the fix also re-runs a legitimate control case (proves precision).
+  control_case?: RetestControlCase;
+  // Recomputed scan metrics so the dashboard cards can update after a fix.
+  summary?: ScanSummary;
 }

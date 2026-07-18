@@ -19,8 +19,13 @@ that teaches the engine one domain. **Finance** is the first; new domains
 > - The **frontend is config-driven**: suites and frameworks come from
 >   `GET /api/config`, so there is no frontend vertical registry (removed).
 > - **Migration status:** the code under `backend/src/redlayer/` is the pattern
->   scaffold from the first direction (Accounts Payable scenario). It stays as a
->   reference for the pattern and is being migrated to the garak/SMB engine.
+>   scaffold from the first direction (Accounts Payable scenario). This is a
+>   **rewrite, not an incremental migration** — `core/models.py`, `scanner.py`,
+>   `registry.py`, and `verticals/finance/*` use a different vocabulary
+>   (`AttackAttempt`/`AttemptStatus` vs. `Finding`/`queued|running|complete|failed`)
+>   and will be replaced. Note the two existing tests exercise the archived
+>   scenario, so **CI is currently false-green** — the garak engine has no coverage
+>   yet. Replace those tests as the engine lands.
 
 ## Concepts
 
@@ -94,9 +99,10 @@ findings render generically from the API. There is no frontend vertical registry
 
 **Frontend**
 
-1. Create `frontend/src/verticals/<name>/config.ts` exporting a `VerticalConfig`
-   whose `targetId`/`objectiveId` match the backend.
-2. Add it to `VERTICALS` in `verticals/registry.ts`.
+The frontend is config-driven — suites and frameworks come from `GET /api/config`,
+so a new domain needs no frontend registry entry. At most, add display copy where
+the UI labels new suites/frameworks. (There is no `frontend/src/verticals/` — it was
+removed.)
 
 No `core` files change in either half. That is the point.
 

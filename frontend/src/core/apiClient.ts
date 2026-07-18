@@ -13,14 +13,31 @@ export const USE_MOCKS = true; // flip to false when the backend is live
 
 const BASE = USE_MOCKS ? "/mocks" : "http://localhost:8000/api";
 
-// In mock mode there are no dynamic routes, so map each call to a static file.
+// Static fixtures for fixed (non-id) responses. Finding detail is routed by id
+// below (`finding_001.json`, `finding_002.json`, ...).
 const MOCK_FILES = {
   config: "config.json",
-  scan: "scan_complete.json",
+  scanRunning: "scan_running.json",
+  scanComplete: "scan_complete.json",
+  scanCompleteEmpty: "scan_complete_empty.json",
+  scanFailed: "scan_failed.json",
   findings: "findings.json",
-  finding: "finding_001.json",
+  findingsEmpty: "findings_empty.json",
   retest: "retest_blocked.json",
 } as const;
+
+// In mock mode, pick which end state a scan reaches so the failed/empty screens
+// are demoable. Set from a dev control before starting a scan.
+export type MockScenario = "happy" | "failed" | "empty";
+let mockScenario: MockScenario = "happy";
+export function setMockScenario(s: MockScenario) {
+  mockScenario = s;
+}
+
+// Serve `scan_running` for the first few polls so the progress bar is demoable,
+// then flip to the terminal state. Reset when a scan starts.
+const MOCK_RUNNING_POLLS = 2;
+let mockPollCount = 0;
 
 async function getJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
@@ -43,7 +60,10 @@ export function createApiClient() {
     },
 
     async startScan(req: StartScanRequest): Promise<Scan> {
-      if (USE_MOCKS) return getJson<Scan>(`${BASE}/${MOCK_FILES.scan}`);
+      if (USE_MOCKS) {
+        mockPollCount = 0;
+        return getJson<Scan>(`${BASE}/${MOCK_FILES.scanRunning}`);
+      }
       const res = await fetch(`${BASE}/scans`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -54,30 +74,45 @@ export function createApiClient() {
     },
 
     getScan(scanId: string): Promise<Scan> {
-      return getJson<Scan>(
-        USE_MOCKS ? `${BASE}/${MOCK_FILES.scan}` : `${BASE}/scans/${scanId}`,
-      );
+      if (USE_MOCKS) {
+        if (mockPollCount++ < MOCK_RUNNING_POLLS) {
+          return getJson<Scan>(`${BASE}/${MOCK_FILES.scanRunning}`);
+        }
+        const terminal =
+          mockScenario === "failed"
+            ? MOCK_FILES.scanFailed
+            : mockScenario === "empty"
+              ? MOCK_FILES.scanCompleteEmpty
+              : MOCK_FILES.scanComplete;
+        return getJson<Scan>(`${BASE}/${terminal}`);
+      }
+      return getJson<Scan>(`${BASE}/scans/${scanId}`);
     },
 
     getFindings(scanId: string): Promise<{ findings: FindingSummary[] }> {
-      return getJson(
-        USE_MOCKS
-          ? `${BASE}/${MOCK_FILES.findings}`
-          : `${BASE}/scans/${scanId}/findings`,
-      );
+      if (USE_MOCKS) {
+        const file =
+          mockScenario === "empty"
+            ? MOCK_FILES.findingsEmpty
+            : MOCK_FILES.findings;
+        return getJson(`${BASE}/${file}`);
+      }
+      return getJson(`${BASE}/scans/${scanId}/findings`);
     },
 
     getFinding(findingId: string): Promise<FindingDetail> {
+      // Route by id so each finding shows its own detail (fail loud on a typo).
       return getJson<FindingDetail>(
         USE_MOCKS
-          ? `${BASE}/${MOCK_FILES.finding}`
+          ? `${BASE}/${findingId}.json`
           : `${BASE}/findings/${findingId}`,
       );
     },
 
     async retest(findingId: string): Promise<RetestResult> {
-      if (USE_MOCKS)
+      if (USE_MOCKS) {
         return getJson<RetestResult>(`${BASE}/${MOCK_FILES.retest}`);
+      }
       const res = await fetch(`${BASE}/findings/${findingId}/retest`, {
         method: "POST",
       });

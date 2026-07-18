@@ -22,7 +22,7 @@
       "severity": "high",
       "harm_category": "disclosure_bypass",
       "status": "failed",
-      "regulations": ["FCRA"]
+      "regulations": ["FCRA", "ECOA"]
     }
   ]
 }

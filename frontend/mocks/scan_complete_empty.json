@@ -1,6 +1,6 @@
 {
   "id": "scan_a1b2c3",
-  "status": "running",
+  "status": "complete",
   "target": {
     "name": "SMB underwriting agent",
     "endpoint": "POST /agents/underwriting/run"
@@ -12,8 +12,13 @@
     "disclosure_bypass"
   ],
   "frameworks": ["ECOA", "FCRA", "GLBA", "SR_11-7"],
-  "progress": { "completed": 5, "total": 8 },
-  "summary": null,
+  "progress": { "completed": 8, "total": 8 },
+  "summary": {
+    "risk_score": 0,
+    "attack_success_rate": 0.0,
+    "findings_count": 0,
+    "regs_implicated": 0
+  },
   "created_at": "2026-07-18T14:03:00Z",
-  "completed_at": null
+  "completed_at": "2026-07-18T14:05:12Z"
 }

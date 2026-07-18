@@ -84,3 +84,19 @@
 - [ ] Mapping only reports selected frameworks
 - [ ] Re-test flips failed → blocked via real behavior change
 - [ ] Scans are reproducible
+
+## Council review follow-ups (2026-07-18)
+
+- [ ] Build the garak `report.jsonl` → Finding adapter (the core, currently unowned)
+- [ ] Custom garak generator so the target's structured tool call survives into the report
+- [ ] Run garak as a subprocess per scan; derive progress from completed probes
+- [ ] Retest invokes a single probe+detector directly (bypass the batch run)
+- [ ] Restrict grading to deterministic string/trigger detectors; exclude ML detectors
+- [ ] Register custom probes/detectors in garak's plugin namespace
+- [ ] Add a distinct PII canary + detector and a second-applicant record for a real cross-applicant leak
+- [ ] Retest returns malicious + legitimate control results and a recomputed summary
+- [ ] Define risk_score / attack_success_rate formulas; label metrics as authored-suite, not measured exposure
+- [ ] Correct harm→regulation mapping (disclosure→ECOA+FCRA; re-scope unauthorized_action; SR 11-7 = guidance); "implicates" not "violates"
+- [ ] Tavily fixture scrub/validation pass + CI test that fails on PII patterns
+- [ ] Add garak + web framework to dependencies; declare `authoring` extra (done in pyproject)
+- [ ] Replace the stale Accounts-Payable scaffold tests with garak-engine tests (current CI is false-green)

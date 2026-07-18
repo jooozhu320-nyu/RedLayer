@@ -3,11 +3,16 @@ name = "redlayer"
 version = "0.1.0"
 description = "Deterministic prompt-injection red-team engine with pluggable domain verticals"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    # TODO(migration): add the garak scanner and the chosen web framework
+    # (FastAPI recommended for async + CORS) once the engine is wired.
+]
 
 [project.optional-dependencies]
-# Web framework is intentionally unpinned until chosen (FastAPI vs Flask).
-# Add it here, then implement src/redlayer/api/app.py.
+# Authoring-only: the Tavily client used to enrich injected-document fixtures.
+# NOT installed for the demo/CI runtime, which is what lets the import-graph
+# firewall test assert the scan path never imports it.
+authoring = ["tavily-python>=0.5"]
 
 [dependency-groups]
 dev = [
