@@ -23,6 +23,10 @@ to "blocked" (green).**
 Single-page app (Node.js) with client-side routing. Framework TBD (Vite+React or
 Next.js). Build against mocks first (see below).
 
+> **Layout is flexible; the JSON data contract is not.** Rearrange screens freely,
+> but keep the API shapes exact (see [backend-plan.md](backend-plan.md)). A
+> reference wireframe (screenshots/Figma) will be shared separately.
+
 ## Screens
 
 ### 1. Scan configuration (`/`)
