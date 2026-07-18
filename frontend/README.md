@@ -1,7 +1,9 @@
-# RedLayer — Frontend
+# RedLayer — Frontend (Node.js)
 
 The single-page demo UI: start → running scan → finding → patch → replay, understandable
 by judges in under 90 seconds without reading logs.
+
+**Stack:** Node.js.
 
 See [`docs/frontend-plan.md`](../docs/frontend-plan.md) and
 [`docs/frontend-todo.md`](../docs/frontend-todo.md) for screens, states, and the build list.

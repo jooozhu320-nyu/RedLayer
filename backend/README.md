@@ -1,6 +1,8 @@
-# RedLayer — Backend
+# RedLayer — Backend (Python)
 
 The mock **Accounts Payable Agent**, scan orchestration, deterministic grader, and REST API.
+
+**Stack:** Python, managed with [uv](https://docs.astral.sh/uv/).
 
 See [`docs/backend-plan.md`](../docs/backend-plan.md) and
 [`docs/backend-todo.md`](../docs/backend-todo.md) for the full contract and build list.
@@ -15,5 +17,5 @@ See [`docs/backend-plan.md`](../docs/backend-plan.md) and
 
 ## Not yet scaffolded
 
-Application code lives here once the stack is chosen. CI (`.github/workflows/ci.yml`)
-auto-activates the backend job when `backend/package.json` appears.
+Application code lives here once initialized. CI (`.github/workflows/ci.yml`)
+auto-activates the backend job (uv sync, ruff, pytest) when `backend/pyproject.toml` appears.

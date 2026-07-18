@@ -41,8 +41,8 @@ The mock agent will honor a beneficiary (destination-account) change **if and on
 
 ```
 .
-├── backend/     # Mock agent, scan orchestration, deterministic grader, REST API
-├── frontend/    # Single-page demo UI (start → scan → finding → patch → replay)
+├── backend/     # Python — mock agent, scan orchestration, deterministic grader, REST API
+├── frontend/    # Node.js — single-page demo UI (start → scan → finding → patch → replay)
 └── docs/        # Plans and to-dos for both halves
 ```
 

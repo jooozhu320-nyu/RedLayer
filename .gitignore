@@ -1,7 +1,17 @@
-# Dependencies
+# Node dependencies (frontend)
 node_modules/
 .pnp
 .pnp.js
+
+# Python (backend)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 
 # Build output
 dist/

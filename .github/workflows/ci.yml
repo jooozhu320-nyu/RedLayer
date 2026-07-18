@@ -9,36 +9,33 @@ on:
 # during the planning phase and does real work as soon as code lands.
 jobs:
   backend:
-    name: Backend
+    name: Backend (Python)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Detect backend project
         id: detect
         run: |
-          if [ -f backend/package.json ]; then
+          if [ -f backend/pyproject.toml ]; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "No backend/package.json yet — nothing to build."
+            echo "No backend/pyproject.toml yet — nothing to build."
           fi
-      - uses: actions/setup-node@v4
+      - uses: astral-sh/setup-uv@v5
         if: steps.detect.outputs.exists == 'true'
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: backend/package-lock.json
+          enable-cache: true
       - name: Install and verify
         if: steps.detect.outputs.exists == 'true'
         working-directory: backend
         run: |
-          npm ci
-          npm run typecheck --if-present
-          npm run lint --if-present
-          npm test --if-present
+          uv sync
+          uv run ruff check .
+          uv run pytest
 
   frontend:
-    name: Frontend
+    name: Frontend (Node.js)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
