@@ -48,10 +48,12 @@ open-source [garak](https://github.com/NVIDIA/garak) LLM red-teaming toolkit.
 
 ```
 .
-├── backend/     # Python — garak-based engine, mock target, compliance mapping, API
-├── frontend/    # Node.js — config → dashboard → finding detail → re-test
-│   └── mocks/   # static fixtures; build the whole UI before the backend is live
-└── docs/        # plans, to-dos, architecture; archived first-direction docs
+├── backend/              # Python — garak-based engine, mock target, compliance mapping, API
+├── frontend/             # Node.js — config → dashboard → finding detail → re-test
+│   └── mocks/            # static fixtures; build the whole UI before the backend is live
+├── pitch/                # pitch deck + narrative (Workbuddy import)
+├── scripts/fair-lending/ # standalone Flask fair-lending prototype
+└── docs/                 # plans, to-dos, architecture; archived directions
 ```
 
 ## Documentation
@@ -59,6 +61,7 @@ open-source [garak](https://github.com/NVIDIA/garak) LLM red-teaming toolkit.
 - [Architecture: pluggable verticals](docs/architecture.md)
 - [Backend plan](docs/backend-plan.md) · [Backend to-do](docs/backend-todo.md)
 - [Frontend plan](docs/frontend-plan.md) · [Frontend to-do](docs/frontend-todo.md)
+- [Pitch deck & story](pitch/) · [Fair-lending alternate direction](docs/fair-lending/)
 - [Archived: Accounts Payable demo](docs/archive/accounts-payable-demo/) — the first direction
 
 ## Status
