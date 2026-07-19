@@ -77,6 +77,8 @@ pattern scaffold from the first direction and is being migrated to garak.
 
 ## Team
 
+This project was built during an AI Hackathon by a cross-functional team consisting of product and engineering members.
+
 ### Jo (Chengxi Zhu) — Product Manager
 
 - Product definition & MVP scoping
