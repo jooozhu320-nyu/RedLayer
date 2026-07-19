@@ -73,3 +73,28 @@ pattern scaffold from the first direction and is being migrated to garak.
 ## License
 
 [MIT](LICENSE)
+---
+
+## Team
+
+### Jo (Chengxi Zhu) — Product Manager
+
+- Product definition & MVP scoping
+- User research & use-case design
+- Regulatory research (ECOA / Fair Lending)
+- Demo workflow & user journey
+- Pitch Deck
+- Demo video
+- Demo validation & Together AI integration
+
+### JoggerJoel — Frontend Engineer
+
+- Backend architecture
+- API integration
+- LLM orchestration
+
+### KRSpinelli — Backend Engineer
+
+- Frontend implementation
+- User interface
+- Dashboard experience
