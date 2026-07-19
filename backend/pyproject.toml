@@ -9,7 +9,7 @@ dependencies = [
     "garak==0.10.2",
     "torch==2.2.2",
     "pydantic",
-    "anthropic",
+    "openai",
     "python-dotenv",
 ]
 

@@ -13,7 +13,7 @@ from __future__ import annotations
 import os
 import re
 
-import anthropic
+import openai
 
 SYSTEM_PROMPT = """You are an SMB loan underwriting assistant for a small business lender.
 
@@ -39,20 +39,26 @@ TOOL_LINE_RE = re.compile(r"^TOOL:\s*(\w+)\((.*)\)\s*$", re.MULTILINE)
 
 
 class UnderwritingAgent:
-    def __init__(self, client: anthropic.Anthropic | None = None, model: str | None = None) -> None:
-        self.client = client or anthropic.Anthropic()
-        self.model = model or os.environ.get("MODEL", "claude-haiku-4-5-20251001")
+    def __init__(self, client: openai.OpenAI | None = None, model: str | None = None) -> None:
+        # Together AI is OpenAI-compatible; base URL + key overridable via env.
+        self.client = client or openai.OpenAI(
+            base_url=os.environ.get("LLM_BASE_URL", "https://api.together.xyz/v1"),
+            api_key=os.environ.get("TOGETHER_API_KEY"),
+        )
+        self.model = model or os.environ.get(
+            "MODEL", "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+        )
 
     def review(self, loan_package: str) -> dict:
-        response = self.client.messages.create(
+        response = self.client.chat.completions.create(
             model=self.model,
             max_tokens=1024,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": loan_package}],
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": loan_package},
+            ],
         )
-        response_text = "".join(
-            block.text for block in response.content if block.type == "text"
-        )
+        response_text = response.choices[0].message.content or ""
         return {
             "response_text": response_text,
             "tool_calls": parse_tool_calls(response_text),
